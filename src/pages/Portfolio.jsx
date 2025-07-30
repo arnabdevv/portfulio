@@ -9,40 +9,24 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import { useGSAP } from "@/hooks/useGSAP";
 
+// Main portfolio page: assembles all sections and effects
 export default function Portfolio() {
   const { initializeAnimations } = useGSAP();
 
   useEffect(() => {
-    // Initialize particles.js
+    // Setup animated particle background using particles.js
     if (window.particlesJS) {
       window.particlesJS("particles-js", {
         particles: {
-          number: {
-            value: 50,
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-          },
-          color: {
-            value: ["#06D001", "#4635B1", "#B771E5", "#AEEA94"],
-          },
-          shape: {
-            type: "circle",
-          },
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: ["#06D001", "#4635B1", "#B771E5", "#AEEA94"] },
+          shape: { type: "circle" },
           opacity: {
             value: 0.3,
             random: true,
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.1,
-            },
+            anim: { enable: true, speed: 1, opacity_min: 0.1 },
           },
-          size: {
-            value: 3,
-            random: true,
-          },
+          size: { value: 3, random: true },
           line_linked: {
             enable: true,
             distance: 150,
@@ -63,48 +47,41 @@ export default function Portfolio() {
         interactivity: {
           detect_on: "canvas",
           events: {
-            onhover: {
-              enable: true,
-              mode: "repulse",
-            },
-            onclick: {
-              enable: true,
-              mode: "push",
-            },
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
           },
         },
         retina_detect: true,
       });
     }
 
-    // Initialize animations after terminal intro
+    // Start GSAP animations after terminal intro finishes
     const timer = setTimeout(() => {
       initializeAnimations();
     }, 4000);
-
     return () => clearTimeout(timer);
   }, [initializeAnimations]);
 
   return (
     <div className="profile-page min-h-screen text-gray-100">
-      {/* Particle Background */}
+      {/* Particle background layer */}
       <div
         id="particles-js"
         className="particle-container bg-[var(--dark-bg)]"
       ></div>
 
-      {/* Terminal Intro Popup */}
+      {/* Terminal intro popup (animated) */}
       <TerminalIntro />
 
-      {/* Scroll Progress Bar */}
+      {/* Scroll progress bar at top */}
       <div className="fixed top-0 left-0 w-full h-1 z-40">
         <div id="scroll-progress" className="progress-bar w-0"></div>
       </div>
 
-      {/* Navigation */}
+      {/* Main navigation bar */}
       <Navigation />
 
-      {/* Main Sections */}
+      {/* Main content sections */}
       <HeroSection />
       <AboutSection />
       <SkillsSection />

@@ -1,36 +1,29 @@
 import { useEffect, useState } from "react";
 
+// Navigation bar with section highlighting and smooth scroll
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
+    // Highlight nav item based on scroll position
     const handleScroll = () => {
       const sections = document.querySelectorAll("section[id]");
       let current = "";
-
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= sectionTop - 200) {
+        if (window.scrollY >= section.offsetTop - 200) {
           current = section.getAttribute("id") || "";
         }
       });
-
       setActiveSection(current);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll smoothly to section
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: "smooth",
-        block: "start" 
-      });
-    }
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const navItems = [
@@ -38,7 +31,7 @@ export default function Navigation() {
     { id: "about", label: "About" },
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" }
+    { id: "contact", label: "Contact" },
   ];
 
   return (
@@ -49,17 +42,17 @@ export default function Navigation() {
             <button
               onClick={() => scrollToSection(item.id)}
               className="text-sm transition-colors nav-link"
-              style={{ 
-                color: activeSection === item.id ? 'var(--primary-green)' : '#fff'
+              style={{
+                color:
+                  activeSection === item.id ? "var(--primary-green)" : "#fff",
               }}
               onMouseEnter={(e) => {
-                if (activeSection !== item.id) {
-                  e.target.style.color = 'var(--primary-light-green)';
-                }
+                if (activeSection !== item.id)
+                  e.target.style.color = "var(--primary-light-green)";
               }}
               onMouseLeave={(e) => {
                 if (activeSection !== item.id) {
-                  e.target.style.color = '#fff';
+                  e.target.style.color = "#fff";
                 }
               }}
             >

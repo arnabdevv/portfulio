@@ -1,29 +1,22 @@
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Portfolio from "@/pages/Portfolio";
 import NotFound from "@/pages/not-found";
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Portfolio} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
-function App() {
+// Main App component: provides global context and routing
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {/* App-wide notifications can be enabled by uncommenting Toaster */}
         {/* <Toaster /> */}
-        <Router />
+        <Switch>
+          <Route path="/" component={Portfolio} />
+          <Route component={NotFound} />
+        </Switch>
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
