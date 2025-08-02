@@ -42,7 +42,7 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    font-family: 'Poppins', sans-serif;
+    font-family: sans-serif;
     overflow-x: hidden;
   }
   
@@ -66,15 +66,53 @@
     text-shadow: 0 0 3px var(--primary-green), 0 0 6px var(--primary-green);
   }
   
-  .hero-name {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    text-shadow: 
-      0 0 5px var(--primary-magenta), 
-      0 0 10px var(--primary-magenta),
-      0 0 15px var(--primary-magenta),
-      0 0 20px var(--primary-purple);
-  }
+ .hero-name {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 900;
+  text-shadow: 
+    0 0 2px #00ffff, 
+    0 0 4px #00ffff,
+    0 0 6px #00ffff,
+    0 0 8px #00ffff;
+}
+
+.particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.terminal-window {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--primary-green);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, var(--primary-green), var(--primary-light-green));
+  height: 4px;
+  transition: width 0.3s ease;
+}
+
+.project-card {
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.project-card:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+}
+
+.bg-noise {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(70, 53, 177, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(183, 113, 229, 0.1) 0%, transparent 50%);
+}
+
   
   .particle-container {
     position: fixed;
@@ -116,31 +154,51 @@
 
 @layer utilities {
   .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite alternate;
+    animation: pulse-glow 4s ease-in-out infinite;
   }
-  
+
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-  
+
   @keyframes pulse-glow {
-    from {
-      text-shadow: 0 0 3px var(--primary-green), 0 0 6px var(--primary-green);
+    0% {
+      text-shadow: 
+        0 0 2px #00ffff,
+        0 0 4px #00ffff;
     }
-    to {
-      text-shadow: 0 0 5px var(--primary-green), 0 0 10px var(--primary-green), 0 0 15px var(--primary-green);
-    }
-  }
-  
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
+    25% {
+      text-shadow: 
+        0 0 3px #00ffff,
+        0 0 6px #00ffff;
     }
     50% {
-      transform: translateY(-20px);
+      text-shadow: 
+        0 0 4px #00ffff,
+        0 0 8px #00ffff;
+    }
+    75% {
+      text-shadow: 
+        0 0 3px #00ffff,
+        0 0 6px #00ffff;
+    }
+    100% {
+      text-shadow: 
+        0 0 2px #00ffff,
+        0 0 4px #00ffff;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
     }
   }
 }
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import profilePic from "../assets/profilePic.png";
+import CV from "../assets/Arnab_CV.pdf";
 
 // Hero section with mouse tracking and smooth scroll buttons
 export default function HeroSection() {
@@ -10,11 +11,6 @@ export default function HeroSection() {
   // Scroll to Projects section
   const handleViewWork = () => {
     const el = document.getElementById("projects");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-  // Scroll to Contact section
-  const handleGetInTouch = () => {
-    const el = document.getElementById("contact");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -74,7 +70,7 @@ export default function HeroSection() {
           />
         </div>
 
-        <h1 className="text-6xl md:text-8xl font-bold mb-6 hero-name animate-pulse-glow hero-title">
+        <h1 className="text-6xl md:text-8xl font-bold mb-6 hero-name  hero-title">
           ARNAB
         </h1>
         <h2
@@ -105,9 +101,10 @@ export default function HeroSection() {
           >
             View My Work
           </button>
-          <button
-            onClick={handleGetInTouch}
-            className="px-8 py-3 rounded-full transition-all"
+          <a
+            href={CV}
+            download
+            className="px-8 py-4 rounded-full transition-all"
             style={{
               border: `2px solid var(--primary-purple)`,
               color: "var(--primary-purple)",
@@ -121,8 +118,8 @@ export default function HeroSection() {
               e.target.style.color = "var(--primary-purple)";
             }}
           >
-            Get In Touch
-          </button>
+            Download CV
+          </a>
         </div>
       </div>
 
