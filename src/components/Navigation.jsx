@@ -35,7 +35,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 glass-effect rounded-full px-8 py-3 z-30">
+    <nav className="Nav-bar fixed top-4 left-1/2 transform -translate-x-1/2 glass-effect rounded-full px-8 py-3 z-30">
       <ul className="flex space-x-8">
         {navItems.map((item) => (
           <li key={item.id}>

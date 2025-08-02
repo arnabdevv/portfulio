@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import profilePic from "../assets/profilePic.png";
 
 // About section with 3D tilt card and summary
 export default function AboutSection() {
@@ -36,7 +37,7 @@ export default function AboutSection() {
               contributing to open source projects, or enjoying a good cup of
               coffee while planning my next creative project.
             </p>
-            <div className="flex space-x-6">
+            {/* <div className="flex space-x-6">
               <div className="text-center">
                 <div
                   className="text-3xl font-bold"
@@ -64,14 +65,13 @@ export default function AboutSection() {
                 </div>
                 <div className="text-sm text-gray-400">Satisfaction</div>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* 3D Tilt Card */}
           <div className="flex justify-center">
             <div className="about-card glass-effect p-8 rounded-xl max-w-sm w-full transform-gpu">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
-                alt="Arnab - Web Developer"
+                src={profilePic}
                 className="w-32 h-32 rounded-full mx-auto mb-6 border-2"
                 style={{ borderColor: "var(--primary-purple)" }}
               />
