@@ -113,42 +113,8 @@
     radial-gradient(circle at 75% 75%, rgba(183, 113, 229, 0.1) 0%, transparent 50%);
 }
 
-  
-  .particle-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-  
-  .terminal-window {
-    background: rgba(0, 0, 0, 0.9);
-    border: 1px solid var(--primary-green);
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-  }
-  
-  .progress-bar {
-    background: linear-gradient(90deg, var(--primary-green), var(--primary-light-green));
-    height: 4px;
-    transition: width 0.3s ease;
-  }
-  
-  .project-card {
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  
-  .project-card:hover {
-    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
-  }
-  
-  .bg-noise {
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(70, 53, 177, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(183, 113, 229, 0.1) 0%, transparent 50%);
+.social-icon:hover {
+    animation: shine 1.5s infinite linear;
   }
 }
 
@@ -196,6 +162,30 @@
     50% {
       transform: translateY(-6px);
     }
+  }
+
+  @keyframes shine {
+    0% {
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.5), 0 0 4px rgba(255, 255, 255, 0.5), 0 0 6px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.5), 0 0 4px rgba(255, 255, 255, 0.5), 0 0 6px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .social-icon {
+    @apply relative cursor-pointer text-2xl;
+  }
+
+  .tooltip {
+    @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black bg-opacity-80 rounded opacity-0 pointer-events-none transition-opacity duration-300;
+  }
+
+  .social-icon:hover .tooltip {
+    opacity: 1;
   }
 }
 

@@ -1,10 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profilePic from "../assets/profilePic.png";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // About section with 3D tilt card and summary
 export default function AboutSection() {
+  const aboutRef = useRef(null);
+  const containerRef = useRef(null);
+  const iconRefs = useRef([]);
+
   useEffect(() => {
-    // Add 3D tilt effect to card
+    gsap.registerPlugin(ScrollTrigger);
+
+    // VanillaTilt card animation (no change)
     if (window.VanillaTilt) {
       const card = document.querySelector(".about-card");
       if (card) {
@@ -16,7 +26,71 @@ export default function AboutSection() {
         });
       }
     }
+
+    // Animate social icons on scroll
+    const ctx = gsap.context(() => {
+      gsap.from(".social-icon", {
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "power2.out",
+      });
+    }, aboutRef);
+
+    return () => ctx.revert();
+
+    // Hover animation (no change)
+    iconRefs.current.forEach((icon) => {
+      icon.addEventListener("mouseenter", () => {
+        gsap.to(icon, {
+          scale: 1.2,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      icon.addEventListener("mouseleave", () => {
+        gsap.to(icon, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+      });
+    });
   }, []);
+
+  const socialLinks = [
+    {
+      href: "https://www.linkedin.com/in/arnabdinda",
+      label: "LinkedIn",
+      icon: "fab fa-linkedin",
+      color: "text-purple-400",
+    },
+    {
+      href: "https://github.com/arnabdevv",
+      label: "GitHub",
+      icon: "fab fa-github",
+      color: "text-green-400",
+    },
+    {
+      href: "https://x.com/ArnabDeveloper",
+      label: "X",
+      icon: "fab fa-twitter",
+      color: "text-pink-400",
+    },
+    {
+      href: "https://www.instagram.com/arnab.s_gallery?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+      label: "Instagram",
+      icon: "fab fa-instagram",
+      color: "text-emerald-300",
+    },
+  ];
 
   return (
     <section id="about" className="py-20 px-4">
@@ -37,36 +111,49 @@ export default function AboutSection() {
               contributing to open source projects, or enjoying a good cup of
               coffee while planning my next creative project.
             </p>
-            {/* <div className="flex space-x-6">
-              <div className="text-center">
-                <div
-                  className="text-3xl font-bold"
-                  style={{ color: "var(--primary-green)" }}
-                >
-                  50+
-                </div>
-                <div className="text-sm text-gray-400">Projects</div>
-              </div>
-              <div className="text-center">
-                <div
-                  className="text-3xl font-bold"
-                  style={{ color: "var(--primary-magenta)" }}
-                >
-                  5+
-                </div>
-                <div className="text-sm text-gray-400">Years</div>
-              </div>
-              <div className="text-center">
-                <div
-                  className="text-3xl font-bold"
-                  style={{ color: "var(--primary-light-green)" }}
-                >
-                  100%
-                </div>
-                <div className="text-sm text-gray-400">Satisfaction</div>
-              </div>
-            </div> */}
+
+            {/* ✅ Updated Social Icons */}
+            {/* ✅ Animate this group on scroll */}
+            <div className="flex space-x-6 mt-8">
+              <a
+                href="https://www.linkedin.com/in/arnabdinda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl transition-colors social-icon"
+                style={{ color: "var(--primary-purple)" }}
+              >
+                <i className="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="https://github.com/arnabdevv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl transition-colors social-icon"
+                style={{ color: "var(--primary-green)" }}
+              >
+                <i className="fab fa-github"></i>
+              </a>
+              <a
+                href="https://x.com/ArnabDeveloper"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl transition-colors social-icon"
+                style={{ color: "var(--primary-magenta)" }}
+              >
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/arnab.s_gallery?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl transition-colors social-icon"
+                style={{ color: "var(--primary-light-green)" }}
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+            </div>
           </div>
+
           {/* 3D Tilt Card */}
           <div className="flex justify-center">
             <div className="about-card glass-effect p-8 rounded-xl max-w-sm w-full transform-gpu">
@@ -83,22 +170,10 @@ export default function AboutSection() {
                 web technologies
               </p>
               <div className="flex justify-center space-x-4">
-                <i
-                  className="fab fa-react text-2xl"
-                  style={{ color: "var(--primary-green)" }}
-                ></i>
-                <i
-                  className="fab fa-node-js text-2xl"
-                  style={{ color: "var(--primary-light-green)" }}
-                ></i>
-                <i
-                  className="fab fa-js-square text-2xl"
-                  style={{ color: "var(--primary-magenta)" }}
-                ></i>
-                <i
-                  className="fab fa-python text-2xl"
-                  style={{ color: "var(--primary-purple)" }}
-                ></i>
+                <i className="fab fa-react text-2xl text-green-400"></i>
+                <i className="fab fa-node-js text-2xl text-emerald-300"></i>
+                <i className="fab fa-js-square text-2xl text-pink-400"></i>
+                <i className="fab fa-python text-2xl text-purple-400"></i>
               </div>
             </div>
           </div>
